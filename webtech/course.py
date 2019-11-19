@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy as np
 from flask import Flask
+from scipy.sparse.linalg import svds
 
 # app = Flask(__name__)
 
@@ -31,11 +32,15 @@ yeet=yeet[yeet.groupby('title',sort=False)['count'].transform(max)==yeet['count'
 yeet.to_csv('gdb/clean.csv')
 #print(yeet)
 
-bookratings = pd.merge(yeet, ratings, on="book_id")
+bookratings = pd.merge(yeet, ratings, on="book_id")#.astype({'rating':'float32'})
 userpiv=bookratings.pivot_table(index="user_id",columns="book_id",values="rating").fillna(0)
 #print(userpiv.head())
 userpiv=userpiv.sub(userpiv.mean(axis=1),axis=0)
-print(userpiv.head())
-# tonump=userpiv.values()
+userpiv=userpiv.values
+print("yeet")
+np.linalg.svd()
+#u, sigma, vt = svds(userpiv,k=50)
+#sigma = np.diag(sigma)
+
 
 #print(movieratings.head())
