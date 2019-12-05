@@ -36,11 +36,14 @@ bookratings = pd.merge(yeet, ratings, on="book_id")#.astype({'rating':'float32'}
 userpiv=bookratings.pivot_table(index="user_id",columns="book_id",values="rating").fillna(0)
 #print(userpiv.head())
 userpiv=userpiv.sub(userpiv.mean(axis=1),axis=0)
-userpiv=userpiv.values
+npuserpiv=userpiv.values
 print("yeet")
-np.linalg.svd()
-#u, sigma, vt = svds(userpiv,k=50)
-#sigma = np.diag(sigma)
+#np.linalg.svd(userpiv)
+u, sigma, vt = svds(userpiv,k=2)
+sigma = np.diag(sigma)
+#print(u)
+#print(sigma)
+print(vt.shape)
 
 
 #print(movieratings.head())
