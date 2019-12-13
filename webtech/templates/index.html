@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>amazon 2</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+  <link rel="stylesheet" href="/static/style.css">
+  <link rel="icon" type="image/png" href="/static/favicon.ico">
+</head>
+<body>
+
+		<nav class="navbar navbar-expand-md bg-light navbar-light static-top">
+			
+			<a class="navbar-brand" href="#">Amazon 2 Electric Gang</a>
+		
+			
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+		
+			
+			<div class="collapse navbar-collapse justify-content-between" id="collapsibleNavbar">
+				<div class="navbar-nav">
+					<button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#changerating"> {{locale[session['locale']]['reviewbut']}} </button>
+				</div>
+				<div class="nav-item nav-text"><div class="username" id = "uname">{{session['username']}}</div></div>
+				<!-- <div class="navbar-nav">
+					<a class="nav-item nav-link" id="logout">Logout</a>
+				</div> -->
+				<div class="navbar-nav">
+						<button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#settings"> {{locale[session['locale']]['settings']}} </button>
+				</div>
+			</div> 
+		</nav>
+		
+		<div id = "main">
+			<!-- <div class= "container-fluid mt-3" id= "hmm">
+				<div class="row ">
+					<div class = "col-6 col-sm-4 col-md-2" id = "bookholder">
+						<div class="card">
+							
+							<img class="card-img-top" src="https://images.gr-assets.com/books/1424037542l/7613.jpg"  alt="Card image cap">
+							<div class="card-body">
+								
+							</div>
+						</div>
+					</div>
+					
+					
+				</div>
+			</div> -->
+			<!-- <div class = "col-6 col-sm-4 col-md-2" id = "bookholder">
+			<div class = "d-flex flex-wrap justify-content-around", id = "bookholder">
+			</div>
+			</div> -->
+			<div class= "container-fluid mt-3" id= "hmm">
+				<div class = "row" id = "bookholder">
+
+				</div>
+			</div>
+			
+		</div>
+		
+		
+		<div class="modal fade" id="settings" tabindex="-1" role="dialog" aria-labelledby="settingstitle" aria-hidden="true">
+		  <div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+			  <div class="modal-header">
+				<h5 class="modal-title" id="settingstitle">{{session['username']}}</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				  <span aria-hidden="true">&times;</span>
+				</button>
+			  </div>
+			  <div class="modal-body">
+					<form id="editdetailsform">
+							<div class="form-group">
+								<label for="fname">{{locale[session['locale']]['fname']}}:</label>
+								<input type="text" class="form-control" id="fname" value = "{{user['fname']}}">
+							</div>
+							<div class="form-group">
+								<label for="sname">{{locale[session['locale']]['sname']}}:</label>
+								<input type="text" class="form-control" id="sname" value = "{{user['sname']}}">
+							</div>
+							<div class="form-group">
+								<label for="newpassword">{{locale[session['locale']]['password']}}:</label>
+								<input type="password" class="form-control" id="newpassword" value = "{{user['password']}}">
+							</div>
+							<div class="form-group">
+								<label for="locale">{{locale[session['locale']]['selectloc']}}</label>
+								<select class="form-control" id="locale" value = "{{user['locale']}}">
+								{% for place in locale %}
+									<option>{{place}}</option>
+								{% endfor %}
+								</select>
+							</div>
+							<button type="submit" form="editdetailsform" class="btn btn-outline-primary">
+									{{locale[session['locale']]['update']}}
+							</button>
+					</form>
+			  </div>
+			  <div class="modal-footer">
+
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">{{locale[session['locale']]['cancel']}}</button>
+					<button type="button" id="logout" class="btn btn-danger">{{locale[session['locale']]['logout']}}</button>
+
+				
+			  </div>
+			</div>
+		  </div>
+		</div>
+		<div class="modal fade" id="changerating" tabindex="-1" role="dialog" aria-labelledby="ratingtitle" aria-hidden="true">
+		  <div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+			  <div class="modal-header">
+				<h5 class="modal-title" id="ratingsname">Edit rating</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				  <span aria-hidden="true">&times;</span>
+				</button>
+			  </div>
+			  <div class="modal-body">
+					<form id="editratingform">
+						<div class="form-group">
+							<label for="fname">Search for a book:</label>
+							<input type="text" class="form-control" id="bookname" placeholder="Book Title">
+						</div>
+						<div class="form-group">
+								<label for="booktitle">{{locale[session['locale']]['title']}}:</label>
+								<select class="form-control" id="booktitle" size = "10">
+									
+								</select>
+							</div>
+						<div class="form-group">
+							<label for="stars">{{locale[session['locale']]['rating']}}:</label>
+							<select class="form-control" id="stars" value = "">
+								<option>1</option>
+								<option>2</option>
+								<option>3</option>
+								<option>4</option>
+								<option>5</option>
+							</select>
+						</div>
+						
+						
+					</form>
+			  </div>
+			  <div class="modal-footer">
+				
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+				<button type="submit" id = "submitnewrate" form="editratingform" class="btn btn-outline-primary" data-dismiss = "modal">
+						{{locale[session['locale']]['update']}}
+				</button>
+			  </div>
+			</div>
+		  </div>
+		</div>
+		<script>
+			$("#bookname").on('input',function(){
+				$.get("/search",{"query":$("#bookname").val()},function(results){
+					$("#booktitle").empty();
+					results.forEach(element => {
+						$("#booktitle").append("<option>"+element.title+"</option>")
+					});
+				});
+			});
+			$("#submitnewrate").click(function(event){
+				let formdata={"title":$("#booktitle").val(),
+					"rating":$("#stars").val(),
+				};
+				console.log(formdata)
+				$.post('/updaterating',formdata);
+			});
+			$("#editdetailsform").submit(function(event){
+				event.preventDefault();
+				let formdata={"password":$("#newpassword").val(),
+					"fname":$("#fname").val(),
+					"sname":$("#sname").val(),
+					"locale":$("#locale").val()
+				};
+					
+				$.post('/edituser',formdata);
+			});
+			$("#logout").click(function(){
+				$.post('/logout',function(){
+					window.location.href = "";
+				});
+			});
+			function refresh24(){
+				$.get('/top24',function(data){
+					console.log(data);
+					$("#bookholder").empty();
+					data.forEach(element => {
+						$("#bookholder").append(
+							$("<div />").addClass("col-6 col-md-4 col-lg-2").append(
+								$("<div />").addClass("card")
+								.append($("<img>").addClass("card-img-top").attr("src",element.image_url).attr('alt','Card image cap'))
+								.append($("<div />").addClass("card-body").html(element.title))
+								)
+							);
+					});
+					
+				});
+			};
+			$(document).ready(function(){
+				refresh24();
+			});
+		</script>
+		<!-- <div class="card">
+							
+			<img class="card-img-top" src="https://images.gr-assets.com/books/1424037542l/7613.jpg"  alt="Card image cap">
+			<div class="card-body">
+				
+			</div>
+		</div> -->
+		</body>
+</html>

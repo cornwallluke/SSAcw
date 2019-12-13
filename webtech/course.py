@@ -24,7 +24,7 @@ tags=tags[tags['tag_name'].isin(genres)]
 #print(books)
 yeet = pd.merge(books,booktags,on='goodreads_book_id')
 yeet = pd.merge(yeet, tags, on='tag_id')
-yeet=yeet.drop(columns=["goodreads_book_id", "best_book_id", "work_id", "books_count", "isbn", "isbn13", "authors", "original_publication_year", "original_title", "language_code", "average_rating", "ratings_count", "work_ratings_count", "work_text_reviews_count", "ratings_1", "ratings_2", "ratings_3", "ratings_4", "ratings_5", "image_url", "small_image_url"])
+yeet=yeet.drop(columns=["goodreads_book_id", "best_book_id", "work_id", "books_count", "isbn", "isbn13", "authors", "original_publication_year", "original_title", "language_code", "average_rating", "ratings_count", "work_ratings_count", "work_text_reviews_count", "ratings_1", "ratings_2", "ratings_3", "ratings_4", "ratings_5", "small_image_url"])
 
 
 #print(yeet.head())
@@ -32,18 +32,18 @@ yeet=yeet[yeet.groupby('title',sort=False)['count'].transform(max)==yeet['count'
 yeet.to_csv('gdb/clean.csv')
 #print(yeet)
 
-bookratings = pd.merge(yeet, ratings, on="book_id")#.astype({'rating':'float32'})
-userpiv=bookratings.pivot_table(index="user_id",columns="book_id",values="rating").fillna(0)
-#print(userpiv.head())
-userpiv=userpiv.sub(userpiv.mean(axis=1),axis=0)
-npuserpiv=userpiv.values
-print("yeet")
-#np.linalg.svd(userpiv)
-u, sigma, vt = svds(userpiv,k=2)
-sigma = np.diag(sigma)
-#print(u)
-#print(sigma)
-print(vt.shape)
+# bookratings = pd.merge(yeet, ratings, on="book_id")#.astype({'rating':'float32'})
+# userpiv=bookratings.pivot_table(index="user_id",columns="book_id",values="rating").fillna(0)
+# #print(userpiv.head())
+# userpiv=userpiv.sub(userpiv.mean(axis=1),axis=0)
+# npuserpiv=userpiv.values
+# print("yeet")
+# #np.linalg.svd(userpiv)
+# u, sigma, vt = svds(userpiv,k=2)
+# sigma = np.diag(sigma)
+# #print(u)
+# #print(sigma)
+# print(vt.shape)
 
 
-#print(movieratings.head())
+# #print(movieratings.head())

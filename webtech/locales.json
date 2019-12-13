@@ -1,0 +1,25 @@
+{
+    "english":{
+        "settings":"Settings",
+        "reviewbut":"Review a Book",
+        "username":"Username",
+        "password":"Password",
+        "login":"Log in",
+        "logout":"Log out",
+        "signup":"Sign up",
+        "fname":"First Name",
+        "sname":"Last Name",
+        "update":"Update",
+        "cancel":"Cancel",
+        "selectloc":"Select Locale",
+        "rating":"Rating",
+        "title":"Title"
+        
+    },
+    "emojis":{
+        "settings":"⚙️",
+        "reviewbut":"⭐⭐📚⭐⭐",
+        "username":"🚶",
+        "password":"⚫⚫⚫⚫"
+    }
+}
