@@ -28,22 +28,12 @@ yeet=yeet.drop(columns=["goodreads_book_id", "best_book_id", "work_id", "books_c
 
 
 #print(yeet.head())
-yeet=yeet[yeet.groupby('title',sort=False)['count'].transform(max)==yeet['count']].drop_duplicates(subset='book_id')
-yeet.to_csv('gdb/clean.csv')
-#print(yeet)
-
-# bookratings = pd.merge(yeet, ratings, on="book_id")#.astype({'rating':'float32'})
-# userpiv=bookratings.pivot_table(index="user_id",columns="book_id",values="rating").fillna(0)
-# #print(userpiv.head())
-# userpiv=userpiv.sub(userpiv.mean(axis=1),axis=0)
-# npuserpiv=userpiv.values
-# print("yeet")
-# #np.linalg.svd(userpiv)
-# u, sigma, vt = svds(userpiv,k=2)
-# sigma = np.diag(sigma)
-# #print(u)
-# #print(sigma)
-# print(vt.shape)
-
-
+# yeet=yeet[yeet.groupby('title',sort=False)['count'].transform(max)==yeet['count']].drop_duplicates(subset='book_id')
+# yeet.to_csv('gdb/clean.csv')
+pd.merge()
+yeet = yeet.sort_values('count',ascending = False)
+a = yeet.groupby('title', sort = True)['tag_name','count'].transform(lambda x: "|".join([i[0] for i in sorted(x,key = lambda z:z[1])]))
+yeet.groupby('title', sort = False)[['tag_name','count']].transform(lambda x: "|".join([i[0] for i in sorted(x,key = lambda z,k:k)]))
+b = pd.DataFrame(a).rename(columns = {0:"genre"})
+c = pd.merge(yeet, b, left_on = 'book_id', right_index = True)
 # #print(movieratings.head())

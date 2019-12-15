@@ -73,8 +73,10 @@
 <script>
     $("#loginform").submit(function(event){
 		event.preventDefault();
-		$.post('log',{'username':$("#username").val(), 'password':$("#password").val()});
-		window.location.href="";
+		$.post('/log',{'username':$("#username").val(), 'password':$("#password").val()},function(){
+			window.location.href="";
+		});
+		
 	});
 	$("#signupform").submit(function(event){
 		event.preventDefault();
@@ -84,8 +86,10 @@
 			"sname":$("#sname").val()};
 			
 		$.post('/adduser',formdata,function(data){
-				$.post('log',{'username':formdata.username, 'password':formdata.password});
-				window.location.href="";
+				$.post('/log',{'username':formdata.username, 'password':formdata.password},function(){
+					window.location.href="";
+				});
+				
 			});
 	});
     

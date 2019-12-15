@@ -17,7 +17,7 @@
 
 		<nav class="navbar navbar-expand-md bg-light navbar-light static-top">
 			
-			<a class="navbar-brand" href="#">Amazon 2 Electric Gang</a>
+			<a class="navbar-brand" href="#">Amazon 2</a>
 		
 			
 			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
@@ -26,6 +26,13 @@
 		
 			
 			<div class="collapse navbar-collapse justify-content-between" id="collapsibleNavbar">
+				
+				<div class="navbar-nav">
+					<button type="button" class="btn btn-outline-primary" id="reviewed">{{locale[session['locale']]['revieweditems']}}</button>
+				</div>
+				<div class="navbar-nav">
+					<button type="button" class="btn btn-outline-primary"  id="recs">{{locale[session['locale']]['recommendations']}}</button>
+				</div>
 				<div class="navbar-nav">
 					<button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#changerating"> {{locale[session['locale']]['reviewbut']}} </button>
 				</div>
@@ -118,7 +125,7 @@
 		  <div class="modal-dialog modal-dialog-centered" role="document">
 			<div class="modal-content">
 			  <div class="modal-header">
-				<h5 class="modal-title" id="ratingsname">Edit rating</h5>
+				<h5 class="modal-title" id="ratingsname">{{locale[session['locale']]['editrate']}}</h5>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 				  <span aria-hidden="true">&times;</span>
 				</button>
@@ -126,7 +133,7 @@
 			  <div class="modal-body">
 					<form id="editratingform">
 						<div class="form-group">
-							<label for="fname">Search for a book:</label>
+							<label for="fname">{{locale[session['locale']]['searchforbook']}}:</label>
 							<input type="text" class="form-control" id="bookname" placeholder="Book Title">
 						</div>
 						<div class="form-group">
@@ -151,7 +158,7 @@
 			  </div>
 			  <div class="modal-footer">
 				
-				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">{{locale[session['locale']]['close']}}</button>
 				<button type="submit" id = "submitnewrate" form="editratingform" class="btn btn-outline-primary" data-dismiss = "modal">
 						{{locale[session['locale']]['update']}}
 				</button>
@@ -173,7 +180,15 @@
 					"rating":$("#stars").val(),
 				};
 				console.log(formdata)
-				$.post('/updaterating',formdata);
+				$.post('/updaterating',formdata,function(){
+					window.location.href = "";
+				});
+			});
+			$("#reviewed").click(function(event){
+				refreshreviewed();
+			});
+			$("#recs").click(function(event){
+				refresh24();
 			});
 			$("#editdetailsform").submit(function(event){
 				event.preventDefault();
@@ -192,6 +207,32 @@
 			});
 			function refresh24(){
 				$.get('/top24',function(data){
+					console.log(data.length);
+					$("#bookholder").empty();
+					
+					data.forEach(element => {
+						$("#bookholder").append(
+							$("<div />").addClass("col-6 col-md-4 col-lg-2").append(
+								$("<div />").addClass("card")
+								.append($("<img>").addClass("card-img-top").attr("src",element.image_url).attr('alt','Card image cap'))
+								.append($("<div />").addClass("card-body").html(element.title+"<br><b>Genre:</b>"+element.genres))
+								)
+							);
+					});
+					if(data.length == 0){
+						$("#bookholder").append(
+							$("<div />").addClass("col-6 col-md-4 col-lg-2").append(
+								$("<div />").addClass("card")
+								
+								.append($("<div />").addClass("card-body").html("<b>Maybe Rate Some Books?</b>"))
+								)
+							);
+					};
+					
+				});
+			};
+			function refreshreviewed(){
+				$.get('/rated',function(data){
 					console.log(data);
 					$("#bookholder").empty();
 					data.forEach(element => {
@@ -199,7 +240,7 @@
 							$("<div />").addClass("col-6 col-md-4 col-lg-2").append(
 								$("<div />").addClass("card")
 								.append($("<img>").addClass("card-img-top").attr("src",element.image_url).attr('alt','Card image cap'))
-								.append($("<div />").addClass("card-body").html(element.title))
+								.append($("<div />").addClass("card-body").html(element.title+"<br><b>Genre:</b>"+element.genres+"<br>"+"You gave it: "+"★".repeat(element.rating)))
 								)
 							);
 					});

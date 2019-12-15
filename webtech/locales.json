@@ -13,13 +13,36 @@
         "cancel":"Cancel",
         "selectloc":"Select Locale",
         "rating":"Rating",
-        "title":"Title"
+        "title":"Title",
+        "close":"Close",
+        "editrate":"Edit Rating",
+        "searchforbook":"Search for a book",
+        "revieweditems":"Reviewed Items",
+        "recommendations":"Recommendations"
+
         
     },
-    "emojis":{
-        "settings":"⚙️",
-        "reviewbut":"⭐⭐📚⭐⭐",
-        "username":"🚶",
-        "password":"⚫⚫⚫⚫"
+    "español":{
+        "settings":"Configuración",
+        "reviewbut":"Revisar un libro",
+        "username":"Nombre de usuario",
+        "password":"Contraseña",
+        "login":"Iniciar sesión",
+        "logout":"Cerrar sesión",
+        "signup":"Registrarse",
+        "fname":"Nombre",
+        "sname":"Apellido",
+        "update":"Actualizar",
+        "cancel":"Cancelar",
+        "selectloc":"Seleccionar configuración regional",
+        "rating":"Rating",
+        "title":"Título",
+        "close":"cerca",
+        "editrate":"Editar calificación",
+        "searchforbook":"Buscar un libro",
+        "revieweditems":"Artículos revisados",
+        "recommendations":"Recomendaciones"
+
+        
     }
 }
